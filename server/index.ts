@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import path from "node:path";
 
 import { pool } from "./db-postgres.js";
 
@@ -2601,6 +2602,16 @@ Não escreva nenhum texto fora do JSON.
     }
   }
 );
+
+const distPath = path.resolve("dist");
+
+app.use(express.static(distPath));
+
+app.get(/^(?!\/api).*/, (_req, res) => {
+  return res.sendFile(
+    path.join(distPath, "index.html")
+  );
+});
 
 const PORT =
   Number(process.env.PORT) ||
