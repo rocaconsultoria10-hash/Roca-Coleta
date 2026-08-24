@@ -18,7 +18,9 @@ export type IngredienteDaReceita = {
   quantidadeUtilizada: string;
   unidadeMedida: string;
   sobra: string;
-  modulo: "MASSA" | "COBERTURA_ACABAMENTO";
+  modulo:
+    | "MASSA"
+    | "COBERTURA_ACABAMENTO";
 };
 
 export type EmbalagemDaReceita = {
@@ -42,7 +44,9 @@ export type FotoReceita = {
 export interface Receita {
   id: number;
 
-    produtoId: number;
+  empresaId: number;
+
+  produtoId: number;
   codigoProduto: string;
   nomeProduto: string;
   gramaturaProduto: string;
@@ -53,21 +57,34 @@ export interface Receita {
   responsavelColeta: string;
   estoqueCongelado: string;
 
-  validadeSugeridaDias: number | null;
+  validadeSugeridaDias:
+    | number
+    | null;
   validadeConservacao: string;
   validadeMotivo: string;
   validadeReferencias: string[];
 
-  cargosEnvolvidos: CargoReceita[];
-  maquinas: MaquinaReceita[];
-  ingredientes: IngredienteDaReceita[];
-  embalagens: EmbalagemDaReceita[];
-  fotos: FotoReceita[];
+  cargosEnvolvidos:
+    CargoReceita[];
+
+  maquinas:
+    MaquinaReceita[];
+
+  ingredientes:
+    IngredienteDaReceita[];
+
+  embalagens:
+    EmbalagemDaReceita[];
+
+  fotos:
+    FotoReceita[];
 
   horaInicioProducao: string;
   horaFinalProducao: string;
+
   quantidadeProduzida: string;
   unidadeMedidaProduto: string;
+
   pesoTotalIngredientes: number;
   pesoTotalProduzido: string;
   unidadePesoProduzido: string;

@@ -1270,6 +1270,8 @@ const receita: Receita = {
     ? receitaEdicaoId
     : receitaId,
 
+  empresaId,
+
   produtoId: produtoSelecionado.id,
   codigoProduto: produtoSelecionado.codigo,
   nomeProduto: produtoSelecionado.descricao,

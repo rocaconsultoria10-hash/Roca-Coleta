@@ -1,47 +1,73 @@
-import { openDB } from "idb";
 import type { Receita } from "../models/Receita";
 
-const BANCO = "roca-coleta-receitas";
-const VERSAO = 1;
-const TABELA = "receitas";
+const API_URL = "/api/receitas";
 
-const dbPromise = openDB(BANCO, VERSAO, {
-  upgrade(db) {
-    if (!db.objectStoreNames.contains(TABELA)) {
-      db.createObjectStore(TABELA, {
-        keyPath: "id",
-      });
-    }
-  },
-});
+type RespostaApi<T> = {
+  sucesso: boolean;
+  dados: T;
+  mensagem?: string;
+};
+
+async function tratarResposta<T>(
+  response: Response
+): Promise<T> {
+  const resposta =
+    (await response.json()) as RespostaApi<T>;
+
+  if (!response.ok || !resposta.sucesso) {
+    throw new Error(
+      resposta.mensagem ||
+        "Erro ao acessar as receitas."
+    );
+  }
+
+  return resposta.dados;
+}
 
 export const receitaService = {
   async listar(): Promise<Receita[]> {
-    const db = await dbPromise;
+    const response = await fetch(API_URL);
 
-    const receitas = await db.getAll(TABELA);
+    return tratarResposta<Receita[]>(response);
+  },
 
-    return receitas.sort((a, b) =>
-      b.atualizadoEm.localeCompare(a.atualizadoEm)
+  async buscarPorId(
+    id: number
+  ): Promise<Receita | undefined> {
+    const response = await fetch(
+      `${API_URL}/${id}`
     );
+
+    if (response.status === 404) {
+      return undefined;
+    }
+
+    return tratarResposta<Receita>(response);
   },
 
-  async buscarPorId(id: number): Promise<Receita | undefined> {
-    const db = await dbPromise;
+  async salvar(
+    receita: Receita
+  ): Promise<void> {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(receita),
+    });
 
-    return db.get(TABELA, id);
-  },
-
-  async salvar(receita: Receita): Promise<void> {
-    const db = await dbPromise;
-
-    await db.put(TABELA, receita);
+    await tratarResposta<Receita>(response);
   },
 
   async remover(id: number): Promise<void> {
-    const db = await dbPromise;
+    const response = await fetch(
+      `${API_URL}/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
 
-    await db.delete(TABELA, id);
+    await tratarResposta<unknown>(response);
   },
 
   async listarPorProduto(
@@ -50,7 +76,8 @@ export const receitaService = {
     const receitas = await this.listar();
 
     return receitas.filter(
-      (receita) => receita.produtoId === produtoId
+      (receita) =>
+        receita.produtoId === produtoId
     );
   },
 };
