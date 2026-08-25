@@ -293,9 +293,19 @@ export const produtoService = {
    * listarPorEmpresa/buscar, que agora
    * trabalham com o servidor.
    */
-  async listar(): Promise<
-    Produto[]
-  > {
+  async listar(
+    empresaId?: number
+  ): Promise<Produto[]> {
+    if (
+      empresaId &&
+      Number.isFinite(empresaId) &&
+      empresaId > 0
+    ) {
+      return garantirBaseServidor(
+        empresaId
+      );
+    }
+
     return listarLocal();
   },
 
