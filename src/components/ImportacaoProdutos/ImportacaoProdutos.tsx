@@ -272,11 +272,13 @@ export default function ImportacaoProdutos() {
         });
 
       const planilhaProdutos =
-        buscarPlanilha(workbook, [
-          "Produtos",
-          "Produto",
-        ]);
-
+  buscarPlanilha(workbook, [
+    "Produtos",
+    "Produto",
+  ]) ??
+  workbook.Sheets[
+    workbook.SheetNames[0]
+  ];
       const planilhaMaquinas =
         buscarPlanilha(workbook, [
           "Máquinas",
