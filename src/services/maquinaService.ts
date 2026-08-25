@@ -1,81 +1,92 @@
-import { openDB } from "idb";
 import type { Maquina } from "../models/Maquina";
 
-const BANCO = "roca-coleta-maquinas";
-const VERSAO = 1;
-const TABELA = "maquinas";
-
-const dbPromise = openDB(BANCO, VERSAO, {
-  upgrade(db) {
-    if (!db.objectStoreNames.contains(TABELA)) {
-      db.createObjectStore(TABELA, {
-        keyPath: "id",
-      });
-    }
-  },
-});
+type RespostaLista = {
+  sucesso: boolean;
+  dados: Maquina[];
+};
 
 export const maquinaService = {
   async listar(): Promise<Maquina[]> {
-    const db = await dbPromise;
-
-    const maquinas =
-      await db.getAll(TABELA);
-
-    return maquinas.sort((a, b) =>
-      a.descricao.localeCompare(
-        b.descricao,
-        "pt-BR",
-        { sensitivity: "base" }
-      )
+    const resposta = await fetch(
+      "/api/maquinas"
     );
+
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
+
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível carregar os equipamentos."
+      );
+    }
+
+    const dados =
+      (await resposta.json()) as RespostaLista;
+
+    return dados.dados ?? [];
   },
 
   async importar(
     lista: Maquina[]
   ): Promise<void> {
-    const db = await dbPromise;
+    const resposta = await fetch(
+      "/api/maquinas/importar",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          maquinas: lista,
+        }),
+      }
+    );
 
-    const transacao =
-      db.transaction(
-        TABELA,
-        "readwrite"
-      );
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
 
-    await transacao.store.clear();
-
-    for (const maquina of lista) {
-      await transacao.store.put(
-        maquina
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível importar os equipamentos."
       );
     }
-
-    await transacao.done;
   },
 
   async buscar(
     termo: string
   ): Promise<Maquina[]> {
     const pesquisa =
-      termo.trim().toLowerCase();
+      termo.trim();
 
     if (!pesquisa) {
       return [];
     }
 
-    const maquinas =
-      await this.listar();
+    const resposta = await fetch(
+      `/api/maquinas/buscar?termo=${encodeURIComponent(
+        pesquisa
+      )}`
+    );
 
-    return maquinas
-      .filter(
-        (maquina) =>
-          maquina.codigo
-            .toLowerCase()
-            .includes(pesquisa) ||
-          maquina.descricao
-            .toLowerCase()
-            .includes(pesquisa)
-      )
-      .slice(0, 20);
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
+
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível buscar os equipamentos."
+      );
+    }
+
+    const dados =
+      (await resposta.json()) as RespostaLista;
+
+    return dados.dados ?? [];
   },
 };
