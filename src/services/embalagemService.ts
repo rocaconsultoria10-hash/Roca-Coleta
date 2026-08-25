@@ -1,52 +1,92 @@
-import { openDB } from "idb";
 import type { Embalagem } from "../models/Embalagem";
 
-const BANCO = "roca-coleta-embalagens";
-const VERSAO = 1;
-const TABELA = "embalagens";
-
-const dbPromise = openDB(BANCO, VERSAO, {
-  upgrade(db) {
-    if (!db.objectStoreNames.contains(TABELA)) {
-      db.createObjectStore(TABELA, {
-        keyPath: "id",
-      });
-    }
-  },
-});
+type RespostaLista = {
+  sucesso: boolean;
+  dados: Embalagem[];
+};
 
 export const embalagemService = {
   async listar(): Promise<Embalagem[]> {
-    const db = await dbPromise;
-    return db.getAll(TABELA);
-  },
+    const resposta = await fetch(
+      "/api/embalagens"
+    );
 
-  async importar(lista: Embalagem[]): Promise<void> {
-    const db = await dbPromise;
-    const transacao = db.transaction(TABELA, "readwrite");
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
 
-    await transacao.store.clear();
-
-    for (const embalagem of lista) {
-      await transacao.store.put(embalagem);
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível carregar as embalagens."
+      );
     }
 
-    await transacao.done;
+    const dados =
+      (await resposta.json()) as RespostaLista;
+
+    return dados.dados ?? [];
   },
 
-  async buscar(termo: string): Promise<Embalagem[]> {
-    const pesquisa = termo.trim().toLowerCase();
+  async importar(
+    lista: Embalagem[]
+  ): Promise<void> {
+    const resposta = await fetch(
+      "/api/embalagens/importar",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          embalagens: lista,
+        }),
+      }
+    );
 
-    if (!pesquisa) return [];
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
 
-    const embalagens = await this.listar();
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível importar as embalagens."
+      );
+    }
+  },
 
-    return embalagens
-      .filter(
-        (embalagem) =>
-          embalagem.codigo.toLowerCase().includes(pesquisa) ||
-          embalagem.descricao.toLowerCase().includes(pesquisa)
-      )
-      .slice(0, 20);
+  async buscar(
+    termo: string
+  ): Promise<Embalagem[]> {
+    const pesquisa =
+      termo.trim();
+
+    if (!pesquisa) {
+      return [];
+    }
+
+    const resposta = await fetch(
+      `/api/embalagens/buscar?termo=${encodeURIComponent(
+        pesquisa
+      )}`
+    );
+
+    if (!resposta.ok) {
+      const dados = await resposta
+        .json()
+        .catch(() => null);
+
+      throw new Error(
+        dados?.erro ||
+          "Não foi possível buscar as embalagens."
+      );
+    }
+
+    const dados =
+      (await resposta.json()) as RespostaLista;
+
+    return dados.dados ?? [];
   },
 };

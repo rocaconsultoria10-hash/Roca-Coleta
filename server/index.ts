@@ -1653,6 +1653,267 @@ app.get(
   }
 );
 
+
+async function garantirTabelaEmbalagens() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS embalagens (
+      id BIGINT PRIMARY KEY,
+      codigo TEXT NOT NULL DEFAULT '',
+      descricao TEXT NOT NULL DEFAULT '',
+      categoria TEXT NOT NULL DEFAULT '',
+      unidade TEXT NOT NULL DEFAULT '',
+      capacidade TEXT NOT NULL DEFAULT '',
+      "pesoEmbalagem" NUMERIC NOT NULL DEFAULT 0
+    );
+
+    CREATE INDEX IF NOT EXISTS idx_embalagens_codigo
+      ON embalagens (codigo);
+
+    CREATE INDEX IF NOT EXISTS idx_embalagens_descricao
+      ON embalagens (descricao);
+  `);
+}
+
+app.get(
+  "/api/embalagens",
+  async (_req, res) => {
+    try {
+      await garantirTabelaEmbalagens();
+
+      const resultado =
+        await pool.query(`
+          SELECT
+            id,
+            codigo,
+            descricao,
+            categoria,
+            unidade,
+            capacidade,
+            "pesoEmbalagem"
+          FROM embalagens
+          ORDER BY
+            LOWER(descricao),
+            codigo
+        `);
+
+      return res.json({
+        sucesso: true,
+        dados: resultado.rows.map(
+          (item) => ({
+            ...item,
+            id: Number(item.id),
+            pesoEmbalagem: Number(
+              item.pesoEmbalagem ?? 0
+            ),
+          })
+        ),
+      });
+    } catch (error) {
+      console.error(
+        "Erro ao listar embalagens:",
+        error
+      );
+
+      return res.status(500).json({
+        erro:
+          "Não foi possível listar as embalagens.",
+      });
+    }
+  }
+);
+
+app.post(
+  "/api/embalagens/importar",
+  async (req, res) => {
+    const embalagens =
+      req.body?.embalagens;
+
+    if (
+      !Array.isArray(embalagens)
+    ) {
+      return res.status(400).json({
+        erro:
+          "Lista de embalagens não informada.",
+      });
+    }
+
+    const cliente =
+      await pool.connect();
+
+    try {
+      await garantirTabelaEmbalagens();
+
+      await cliente.query("BEGIN");
+
+      await cliente.query(
+        "DELETE FROM embalagens"
+      );
+
+      let quantidade = 0;
+
+      for (
+        const item
+        of embalagens as Array<
+          Record<string, unknown>
+        >
+      ) {
+        const idRecebido =
+          Number(item.id);
+
+        const id =
+          Number.isFinite(idRecebido) &&
+          idRecebido > 0
+            ? idRecebido
+            : Date.now() +
+              quantidade;
+
+        const codigo =
+          texto(item.codigo);
+
+        const descricao =
+          texto(item.descricao);
+
+        if (
+          !codigo &&
+          !descricao
+        ) {
+          continue;
+        }
+
+        const peso =
+          Number(
+            item.pesoEmbalagem
+          );
+
+        await cliente.query(
+          `
+            INSERT INTO embalagens (
+              id,
+              codigo,
+              descricao,
+              categoria,
+              unidade,
+              capacidade,
+              "pesoEmbalagem"
+            )
+            VALUES (
+              $1, $2, $3, $4,
+              $5, $6, $7
+            )
+          `,
+          [
+            id,
+            codigo,
+            descricao,
+            texto(item.categoria),
+            texto(item.unidade),
+            texto(item.capacidade),
+            Number.isFinite(peso)
+              ? peso
+              : 0,
+          ]
+        );
+
+        quantidade += 1;
+      }
+
+      await cliente.query(
+        "COMMIT"
+      );
+
+      return res.json({
+        sucesso: true,
+        quantidade,
+      });
+    } catch (error) {
+      await cliente.query(
+        "ROLLBACK"
+      );
+
+      console.error(
+        "Erro ao importar embalagens:",
+        error
+      );
+
+      return res.status(500).json({
+        erro:
+          "Não foi possível importar as embalagens.",
+      });
+    } finally {
+      cliente.release();
+    }
+  }
+);
+
+app.get(
+  "/api/embalagens/buscar",
+  async (req, res) => {
+    try {
+      await garantirTabelaEmbalagens();
+
+      const termo = texto(
+        req.query.termo
+      );
+
+      if (!termo) {
+        return res.json({
+          sucesso: true,
+          dados: [],
+        });
+      }
+
+      const pesquisa =
+        `%${termo}%`;
+
+      const resultado =
+        await pool.query(
+          `
+            SELECT
+              id,
+              codigo,
+              descricao,
+              categoria,
+              unidade,
+              capacidade,
+              "pesoEmbalagem"
+            FROM embalagens
+            WHERE
+              codigo ILIKE $1
+              OR descricao ILIKE $1
+            ORDER BY
+              LOWER(descricao),
+              codigo
+            LIMIT 20
+          `,
+          [pesquisa]
+        );
+
+      return res.json({
+        sucesso: true,
+        dados: resultado.rows.map(
+          (item) => ({
+            ...item,
+            id: Number(item.id),
+            pesoEmbalagem: Number(
+              item.pesoEmbalagem ?? 0
+            ),
+          })
+        ),
+      });
+    } catch (error) {
+      console.error(
+        "Erro ao buscar embalagens:",
+        error
+      );
+
+      return res.status(500).json({
+        erro:
+          "Não foi possível buscar as embalagens.",
+      });
+    }
+  }
+);
+
 app.get(
   "/api/receitas",
   async (req, res) => {
