@@ -246,7 +246,7 @@ export default function ImportacaoProdutos() {
     const empresaSelecionada =
       empresas.find(
         (empresa) =>
-          empresa.id === empresaId
+          Number(empresa.id) === Number(empresaId)
       );
 
     if (!empresaSelecionada) {
