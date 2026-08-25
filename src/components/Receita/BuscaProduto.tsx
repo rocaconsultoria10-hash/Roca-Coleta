@@ -29,11 +29,7 @@ export default function BuscaProduto({
   return (
     <>
       {secaoSelecionada && (
-        <Box
-          sx={{
-            mb: 1.5,
-          }}
-        >
+        <Box sx={{ mb: 1.5 }}>
           <Chip
             label={`Seção: ${secaoSelecionada}`}
             size="small"
@@ -47,46 +43,46 @@ export default function BuscaProduto({
         fullWidth
         label="Buscar por código ou descrição"
         value={busca}
-        onChange={(event) =>
-          onChangeBusca(
-            event.target.value
-          )
-        }
+        onChange={(event) => onChangeBusca(event.target.value)}
       />
 
-      {resultados.length > 0 &&
-        !produtoSelecionado && (
-          <List
-            sx={{
-              mt: 1,
-              border:
-                "1px solid #E5E7EB",
-              borderRadius: 1,
-              maxHeight: 320,
-              overflowY: "auto",
-              bgcolor:
-                "background.paper",
-            }}
-          >
-            {resultados.map(
-              (produto) => (
-                <ListItemButton
-                  key={produto.id}
-                  onClick={() =>
-                    onSelecionarProduto(
-                      produto
-                    )
-                  }
-                >
-                  <ListItemText
-                    primary={`${produto.codigo} - ${produto.descricao}`}
-                    secondary={`${produto.gramatura} | ${produto.departamento} | ${produto.secao}`}
-                  />
-                </ListItemButton>
-              )
-            )}
-          </List>
-        )}
+      {resultados.length > 0 && !produtoSelecionado && (
+        <List
+          sx={{
+            mt: 1,
+            border: "1px solid",
+            borderColor: "divider",
+            borderRadius: 2,
+            maxHeight: {
+              xs: "52dvh",
+              sm: "60dvh",
+              md: "65dvh",
+            },
+            overflowY: "auto",
+            WebkitOverflowScrolling: "touch",
+            bgcolor: "background.paper",
+          }}
+        >
+          {resultados.map((produto) => (
+            <ListItemButton
+              key={produto.id}
+              onClick={() => onSelecionarProduto(produto)}
+              sx={{
+                borderBottom: "1px solid",
+                borderColor: "divider",
+                "&:last-child": {
+                  borderBottom: "none",
+                },
+              }}
+            >
+              <ListItemText
+                primary={`${produto.codigo} - ${produto.descricao}`}
+                secondary={`${produto.gramatura} | ${produto.departamento} | ${produto.secao}`}
+              />
+            </ListItemButton>
+          ))}
+        </List>
+      )}
     </>
   );
 }

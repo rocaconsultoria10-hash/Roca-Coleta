@@ -1,7 +1,5 @@
-import { Capacitor } from "@capacitor/core";
-
-const API_REDE_LOCAL =
-  "http://192.168.18.170:3001";
+const API_PRODUCAO =
+  "https://roca-coleta-production.up.railway.app";
 
 const API_CONFIGURADA =
   String(
@@ -12,9 +10,7 @@ const API_CONFIGURADA =
 
 export const API_BASE_URL =
   API_CONFIGURADA ||
-  (Capacitor.isNativePlatform()
-    ? API_REDE_LOCAL
-    : "");
+  API_PRODUCAO;
 
 export function apiUrl(
   caminho: string
