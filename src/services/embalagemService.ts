@@ -5,10 +5,13 @@ type RespostaLista = {
   dados: Embalagem[];
 };
 
+const API =
+  "https://roca-coleta-production.up.railway.app";
+
 export const embalagemService = {
   async listar(): Promise<Embalagem[]> {
     const resposta = await fetch(
-      "/api/embalagens"
+      `${API}/api/embalagens`
     );
 
     if (!resposta.ok) {
@@ -32,12 +35,11 @@ export const embalagemService = {
     lista: Embalagem[]
   ): Promise<void> {
     const resposta = await fetch(
-      "/api/embalagens/importar",
+      `${API}/api/embalagens/importar`,
       {
         method: "POST",
         headers: {
-          "Content-Type":
-            "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           embalagens: lista,
@@ -58,7 +60,7 @@ export const embalagemService = {
           dados?.erro ||
           corpo;
       } catch {
-        // Mantém o corpo original quando não for JSON.
+        // Mantém a resposta original.
       }
 
       throw new Error(
@@ -73,15 +75,14 @@ export const embalagemService = {
   async buscar(
     termo: string
   ): Promise<Embalagem[]> {
-    const pesquisa =
-      termo.trim();
+    const pesquisa = termo.trim();
 
     if (!pesquisa) {
       return [];
     }
 
     const resposta = await fetch(
-      `/api/embalagens/buscar?termo=${encodeURIComponent(
+      `${API}/api/embalagens/buscar?termo=${encodeURIComponent(
         pesquisa
       )}`
     );

@@ -272,13 +272,14 @@ export default function ImportacaoProdutos() {
         });
 
       const planilhaProdutos =
-  buscarPlanilha(workbook, [
-    "Produtos",
-    "Produto",
-  ]) ??
-  workbook.Sheets[
-    workbook.SheetNames[0]
-  ];
+        buscarPlanilha(workbook, [
+          "Produtos",
+          "Produto",
+        ]) ??
+        workbook.Sheets[
+          workbook.SheetNames[0]
+        ];
+
       const planilhaMaquinas =
         buscarPlanilha(workbook, [
           "Máquinas",
@@ -286,28 +287,31 @@ export default function ImportacaoProdutos() {
           "Equipamentos",
           "Máquinas e Equipamentos",
           "Maquinas e Equipamentos",
-        ]);
+        ]) ??
+        workbook.Sheets[
+          workbook.SheetNames[1]
+        ];
 
       const planilhaColaboradores =
         buscarPlanilha(workbook, [
           "Colaboradores",
           "Colaborador",
           "Pessoas",
-        ]);
+        ]) ??
+        workbook.Sheets[
+          workbook.SheetNames[2]
+        ];
 
       const planilhaEmbalagens =
         buscarPlanilha(workbook, [
           "Embalagens",
           "Embalagem",
-        ]);
+        ]) ??
+        workbook.Sheets[
+          workbook.SheetNames[3]
+        ];
 
-      if (!planilhaProdutos) {
-        throw new Error(
-          "A aba Produtos não foi encontrada."
-        );
-      }
-
-      
+            
 
       const linhasProdutos =
         converterLinhas(
@@ -559,57 +563,12 @@ export default function ImportacaoProdutos() {
           );
 
       await produtoService.importar(
-  produtos
-);
+        produtos
+      );
 
-const produtosGravados =
-  await produtoService.listar();
-
-const produtosDaEmpresa =
-  produtosGravados.filter(
-    (produto) =>
-      produto.empresaId ===
-      Number(empresaId)
-  );
-
-console.log(
-  "PRODUTOS LIDOS:",
-  produtos.length
-);
-
-console.log(
-  "PRODUTOS GRAVADOS:",
-  produtosDaEmpresa.length
-);
-console.log(
-  "TOTAL NO BANCO:",
-  produtosGravados.length
-);
-
-console.log(
-  "EMPRESA SELECIONADA:",
-  Number(empresaId)
-);
-
-console.log(
-  "EMPRESA PRIMEIRO PRODUTO:",
-  produtosGravados[0]?.empresaId
-);
-
-console.log(
-  "EMPRESA ÚLTIMO PRODUTO:",
-  produtosGravados[
-    produtosGravados.length - 1
-  ]?.empresaId
-);
-console.log(
-  "AMOSTRA:",
-  produtosDaEmpresa.slice(0, 5)
-);
-
-await maquinaService.importar(
-  maquinas
-);
+      await maquinaService.importar(
+        maquinas
+      );
 
       await colaboradorService.importar(
         Number(empresaId),
