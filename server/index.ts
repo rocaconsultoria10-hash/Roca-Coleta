@@ -1728,9 +1728,7 @@ app.post(
     const embalagens =
       req.body?.embalagens;
 
-    if (
-      !Array.isArray(embalagens)
-    ) {
+    if (!Array.isArray(embalagens)) {
       return res.status(400).json({
         erro:
           "Lista de embalagens não informada.",
@@ -1742,88 +1740,140 @@ app.post(
 
     try {
       await garantirTabelaEmbalagens();
-
       await cliente.query("BEGIN");
-
       await cliente.query(
         "DELETE FROM embalagens"
       );
 
-      let quantidade = 0;
-
-      for (
-        const item
-        of embalagens as Array<
+      const validas =
+        (embalagens as Array<
           Record<string, unknown>
-        >
-      ) {
-        const idRecebido =
-          Number(item.id);
+        >)
+          .map((item, index) => {
+            const codigo =
+              texto(item.codigo);
 
-        const id =
-          Number.isFinite(idRecebido) &&
-          idRecebido > 0
-            ? idRecebido
-            : Date.now() +
-              quantidade;
+            const descricao =
+              texto(item.descricao);
 
-        const codigo =
-          texto(item.codigo);
+            if (
+              !codigo &&
+              !descricao
+            ) {
+              return null;
+            }
 
-        const descricao =
-          texto(item.descricao);
+            const idRecebido =
+              Number(item.id);
 
-        if (
-          !codigo &&
-          !descricao
-        ) {
-          continue;
-        }
+            const id =
+              Number.isFinite(idRecebido) &&
+              idRecebido > 0
+                ? idRecebido
+                : Date.now() + index;
 
-        const peso =
-          Number(
-            item.pesoEmbalagem
-          );
+            const peso =
+              Number(
+                item.pesoEmbalagem
+              );
 
-        await cliente.query(
-          `
-            INSERT INTO embalagens (
+            return {
               id,
               codigo,
               descricao,
-              categoria,
-              unidade,
-              capacidade,
-              "pesoEmbalagem"
-            )
-            VALUES (
-              $1, $2, $3, $4,
-              $5, $6, $7
-            )
-          `,
-          [
-            id,
-            codigo,
-            descricao,
-            texto(item.categoria),
-            texto(item.unidade),
-            texto(item.capacidade),
-            Number.isFinite(peso)
-              ? peso
-              : 0,
-          ]
-        );
+              categoria:
+                texto(item.categoria),
+              unidade:
+                texto(item.unidade),
+              capacidade:
+                texto(item.capacidade),
+              pesoEmbalagem:
+                Number.isFinite(peso)
+                  ? peso
+                  : 0,
+            };
+          })
+          .filter(
+            (
+              item
+            ): item is {
+              id: number;
+              codigo: string;
+              descricao: string;
+              categoria: string;
+              unidade: string;
+              capacidade: string;
+              pesoEmbalagem: number;
+            } => item !== null
+          );
 
-        quantidade += 1;
+      const TAMANHO_LOTE = 500;
+
+      for (
+        let inicio = 0;
+        inicio < validas.length;
+        inicio += TAMANHO_LOTE
+      ) {
+        const lote =
+          validas.slice(
+            inicio,
+            inicio + TAMANHO_LOTE
+          );
+
+        const valores: unknown[] = [];
+        const placeholders =
+          lote.map((item, index) => {
+            const base =
+              index * 7;
+
+            valores.push(
+              item.id,
+              item.codigo,
+              item.descricao,
+              item.categoria,
+              item.unidade,
+              item.capacidade,
+              item.pesoEmbalagem
+            );
+
+            return `(
+              $${base + 1},
+              $${base + 2},
+              $${base + 3},
+              $${base + 4},
+              $${base + 5},
+              $${base + 6},
+              $${base + 7}
+            )`;
+          });
+
+        if (
+          placeholders.length > 0
+        ) {
+          await cliente.query(
+            `
+              INSERT INTO embalagens (
+                id,
+                codigo,
+                descricao,
+                categoria,
+                unidade,
+                capacidade,
+                "pesoEmbalagem"
+              )
+              VALUES
+              ${placeholders.join(",")}
+            `,
+            valores
+          );
+        }
       }
 
-      await cliente.query(
-        "COMMIT"
-      );
+      await cliente.query("COMMIT");
 
       return res.json({
         sucesso: true,
-        quantidade,
+        quantidade: validas.length,
       });
     } catch (error) {
       await cliente.query(
@@ -1838,6 +1888,10 @@ app.post(
       return res.status(500).json({
         erro:
           "Não foi possível importar as embalagens.",
+        detalhe:
+          error instanceof Error
+            ? error.message
+            : String(error),
       });
     } finally {
       cliente.release();
