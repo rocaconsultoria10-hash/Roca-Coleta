@@ -46,13 +46,26 @@ export const embalagemService = {
     );
 
     if (!resposta.ok) {
-      const dados = await resposta
-        .json()
-        .catch(() => null);
+      const corpo = await resposta.text();
+
+      let mensagem = corpo;
+
+      try {
+        const dados = JSON.parse(corpo);
+
+        mensagem =
+          dados?.detalhe ||
+          dados?.erro ||
+          corpo;
+      } catch {
+        // Mantém o corpo original quando não for JSON.
+      }
 
       throw new Error(
-        dados?.erro ||
+        `Erro ${resposta.status}: ${
+          mensagem ||
           "Não foi possível importar as embalagens."
+        }`
       );
     }
   },
