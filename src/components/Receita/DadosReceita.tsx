@@ -34,35 +34,25 @@ export default function DadosReceita({
 
   return (
     <Paper
-      elevation={0}
       sx={{
-        mt: {
-          xs: 0.75,
-          sm: 1,
-        },
+        mt: 1,
         p: {
-          xs: 0.9,
-          sm: 1.25,
+          xs: 1.5,
+          sm: 2,
         },
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "background.paper",
         boxShadow:
-          "0 3px 12px rgba(13,55,104,0.10)",
+          "0 2px 8px rgba(15,35,60,0.05)",
       }}
     >
       <Typography
+        variant="h6"
         sx={{
-          fontWeight: 800,
-          mb: {
-            xs: 0.7,
-            sm: 1,
-          },
-          color: "#0D3768",
-          fontSize: {
-            xs: "0.95rem",
-            sm: "1rem",
-          },
+          mb: 1.5,
+          color: "text.primary",
         }}
       >
         Dados da Receita
@@ -72,13 +62,11 @@ export default function DadosReceita({
         sx={{
           display: "grid",
           gridTemplateColumns: {
-            xs: "repeat(2, minmax(0, 1fr))",
-            sm: "repeat(4, minmax(0, 1fr))",
+            xs: "1fr",
+            sm: "repeat(2, minmax(0, 1fr))",
+            md: "repeat(4, minmax(0, 1fr))",
           },
-          gap: {
-            xs: 0.55,
-            sm: 0.75,
-          },
+          gap: 1,
         }}
       >
         {dados.map((item) => (
@@ -86,46 +74,31 @@ export default function DadosReceita({
             key={item.titulo}
             sx={{
               minWidth: 0,
-              px: {
-                xs: 0.75,
-                sm: 1,
-              },
-              py: {
-                xs: 0.65,
-                sm: 0.75,
-              },
-              border: "none",
+              px: 1.25,
+              py: 1,
+              border: "1px solid",
+              borderColor: "divider",
               borderRadius: 1.5,
-              backgroundColor: "#F5F8FC",
-              boxShadow:
-                "inset 0 0 0 1px rgba(13,55,104,0.05)",
+              backgroundColor: "#F8FAFC",
             }}
           >
             <Typography
+              variant="body2"
               sx={{
-                fontSize: {
-                  xs: "0.62rem",
-                  sm: "0.68rem",
-                },
-                fontWeight: 800,
-                color: "#64748B",
-                lineHeight: 1.1,
-                mb: 0.3,
-                textTransform: "uppercase",
+                color: "text.secondary",
+                fontWeight: 600,
+                mb: 0.35,
               }}
             >
               {item.titulo}
             </Typography>
 
             <Typography
+              variant="body1"
               sx={{
-                fontSize: {
-                  xs: "0.78rem",
-                  sm: "0.9rem",
-                },
-                fontWeight: 700,
-                color: "#1F2937",
-                lineHeight: 1.2,
+                color: "text.primary",
+                fontWeight: 600,
+                lineHeight: 1.35,
                 wordBreak: "break-word",
               }}
             >

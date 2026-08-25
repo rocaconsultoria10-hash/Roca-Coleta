@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import {
   Box,
   FormControl,
@@ -13,16 +17,27 @@ import {
   Typography,
 } from "@mui/material";
 
-import { colaboradorService } from "../../services/colaboradorService";
-import type { Colaborador } from "../../models/Colaborador";
+import {
+  colaboradorService,
+} from "../../services/colaboradorService";
+
+import type {
+  Colaborador,
+} from "../../models/Colaborador";
 
 type Props = {
   dataColeta: string;
   responsavelColeta: string;
   estoqueCongelado: string;
-  onChangeDataColeta: (valor: string) => void;
-  onChangeResponsavelColeta: (valor: string) => void;
-  onChangeEstoqueCongelado: (valor: string) => void;
+  onChangeDataColeta: (
+    valor: string
+  ) => void;
+  onChangeResponsavelColeta: (
+    valor: string
+  ) => void;
+  onChangeEstoqueCongelado: (
+    valor: string
+  ) => void;
 };
 
 export default function DadosColeta({
@@ -85,35 +100,26 @@ export default function DadosColeta({
 
   return (
     <Paper
-      elevation={0}
       sx={{
-        mt: {
-          xs: 0.75,
-          sm: 1,
-        },
+        mt: 1,
         p: {
-          xs: 0.9,
-          sm: 1.25,
+          xs: 1.5,
+          sm: 2,
         },
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
-        backgroundColor: "#FFFFFF",
+        backgroundColor:
+          "background.paper",
         boxShadow:
-          "0 3px 12px rgba(13,55,104,0.10)",
+          "0 2px 8px rgba(15,35,60,0.05)",
       }}
     >
       <Typography
+        variant="h6"
         sx={{
-          fontWeight: 800,
-          mb: {
-            xs: 0.7,
-            sm: 1,
-          },
-          color: "#0D3768",
-          fontSize: {
-            xs: "0.95rem",
-            sm: "1rem",
-          },
+          mb: 1.5,
+          color: "text.primary",
         }}
       >
         Dados da Coleta
@@ -123,19 +129,16 @@ export default function DadosColeta({
         sx={{
           display: "grid",
           gridTemplateColumns: {
-            xs: "112px minmax(0, 1fr)",
-            sm: "160px minmax(240px, 1fr) 180px",
+            xs: "1fr",
+            sm: "160px minmax(240px, 1fr)",
+            md: "160px minmax(260px, 1fr) 190px",
           },
-          gap: {
-            xs: 0.55,
-            sm: 0.75,
-          },
+          gap: 1.25,
           alignItems: "start",
         }}
       >
         <TextField
           fullWidth
-          size="small"
           label="Data"
           type="date"
           value={dataColeta}
@@ -149,23 +152,6 @@ export default function DadosColeta({
               shrink: true,
             },
           }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "#FFFFFF",
-              "& fieldset": {
-                borderColor:
-                  "rgba(13,55,104,0.16)",
-              },
-              "&:hover fieldset": {
-                borderColor:
-                  "rgba(13,55,104,0.28)",
-              },
-              "&.Mui-focused fieldset": {
-                borderWidth: 1,
-                borderColor: "#0D3768",
-              },
-            },
-          }}
         />
 
         <Box
@@ -176,7 +162,6 @@ export default function DadosColeta({
         >
           <TextField
             fullWidth
-            size="small"
             label="Responsável"
             value={responsavelColeta}
             onChange={(event) =>
@@ -185,54 +170,41 @@ export default function DadosColeta({
               )
             }
             placeholder="Matrícula ou nome"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "#FFFFFF",
-              "& fieldset": {
-                borderColor:
-                  "rgba(13,55,104,0.16)",
-              },
-              "&:hover fieldset": {
-                borderColor:
-                  "rgba(13,55,104,0.28)",
-              },
-              "&.Mui-focused fieldset": {
-                borderWidth: 1,
-                borderColor: "#0D3768",
-              },
-              },
-            }}
           />
 
           {resultados.length > 0 && (
             <List
               sx={{
                 position: "absolute",
-                top: "100%",
+                top: "calc(100% + 4px)",
                 left: 0,
                 right: 0,
                 zIndex: 20,
-                mt: 0.5,
-                p: 0,
-                backgroundColor: "#FFFFFF",
-                border: "none",
-                borderRadius: 1.5,
-                maxHeight: 220,
+                p: 0.5,
+                backgroundColor:
+                  "background.paper",
+                border: "1px solid",
+                borderColor: "divider",
+                borderRadius: 2,
+                maxHeight: 240,
                 overflowY: "auto",
                 boxShadow:
-                  "0 8px 24px rgba(13,55,104,0.14)",
+                  "0 8px 24px rgba(15,35,60,0.12)",
               }}
             >
               {resultados.map(
                 (colaborador) => (
                   <ListItemButton
                     key={colaborador.id}
-                    dense
                     onClick={() =>
                       selecionarColaborador(
                         colaborador
                       )
                     }
+                    sx={{
+                      borderRadius: 1.5,
+                      py: 0.75,
+                    }}
                   >
                     <ListItemText
                       primary={`${colaborador.matricula} - ${colaborador.nome}`}
@@ -243,20 +215,26 @@ export default function DadosColeta({
                       ]
                         .filter(Boolean)
                         .join(" | ")}
-                      sx={{
-                        "& .MuiListItemText-primary":
-                          {
+                      slotProps={{
+                        primary: {
+                          sx: {
                             fontSize:
-                              "0.86rem",
-                            fontWeight:
-                              700,
+                              "0.9rem",
+                            fontWeight: 600,
+                            color:
+                              "text.primary",
                           },
+                        },
 
-                        "& .MuiListItemText-secondary":
-                          {
+                        secondary: {
+                          sx: {
+                            mt: 0.25,
                             fontSize:
-                              "0.74rem",
+                              "0.8rem",
+                            color:
+                              "text.secondary",
                           },
+                        },
                       }}
                     />
                   </ListItemButton>
@@ -268,29 +246,11 @@ export default function DadosColeta({
 
         <FormControl
           fullWidth
-          size="small"
           sx={{
             gridColumn: {
-              xs: "1 / -1",
-              sm: "auto",
-            },
-
-            "& .MuiOutlinedInput-root": {
-              backgroundColor: "#FFFFFF",
-
-              "& fieldset": {
-                borderWidth: 1.5,
-                borderColor: "#9EACBD",
-              },
-
-              "&:hover fieldset": {
-                borderColor: "#0D3768",
-              },
-
-              "&.Mui-focused fieldset": {
-                borderWidth: 2,
-                borderColor: "#0D3768",
-              },
+              xs: "1",
+              sm: "1 / -1",
+              md: "auto",
             },
           }}
         >

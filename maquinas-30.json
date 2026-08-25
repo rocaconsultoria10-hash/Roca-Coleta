@@ -1,0 +1,214 @@
+﻿{
+    "maquinas":  [
+                     {
+                         "id":  1,
+                         "codigo":  "1001",
+                         "descricao":  "Forno Turbo Venâncio FVT-10",
+                         "tipo":  "Forno",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  2,
+                         "codigo":  "1002",
+                         "descricao":  "Forno Lastro Prática",
+                         "tipo":  "Forno",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  3,
+                         "codigo":  "1003",
+                         "descricao":  "Masseira Espiral 25 kg",
+                         "tipo":  "Masseira",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  4,
+                         "codigo":  "1004",
+                         "descricao":  "Masseira Espiral 50 kg",
+                         "tipo":  "Masseira",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  5,
+                         "codigo":  "1005",
+                         "descricao":  "Batedeira Planetária 20 L",
+                         "tipo":  "Batedeira",
+                         "setor":  "Confeitaria"
+                     },
+                     {
+                         "id":  6,
+                         "codigo":  "1006",
+                         "descricao":  "Batedeira Planetária 40 L",
+                         "tipo":  "Batedeira",
+                         "setor":  "Confeitaria"
+                     },
+                     {
+                         "id":  7,
+                         "codigo":  "1007",
+                         "descricao":  "Cilindro Laminador",
+                         "tipo":  "Cilindro",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  8,
+                         "codigo":  "1008",
+                         "descricao":  "Modeladora de Pães",
+                         "tipo":  "Modeladora",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  9,
+                         "codigo":  "1009",
+                         "descricao":  "Divisora de Massa",
+                         "tipo":  "Divisora",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  10,
+                         "codigo":  "1010",
+                         "descricao":  "Câmara de Fermentação",
+                         "tipo":  "Fermentação",
+                         "setor":  "Padaria"
+                     },
+                     {
+                         "id":  11,
+                         "codigo":  "1011",
+                         "descricao":  "Câmara Fria",
+                         "tipo":  "Refrigeração",
+                         "setor":  "Frios"
+                     },
+                     {
+                         "id":  12,
+                         "codigo":  "1012",
+                         "descricao":  "Ultracongelador",
+                         "tipo":  "Congelamento",
+                         "setor":  "Congelados"
+                     },
+                     {
+                         "id":  13,
+                         "codigo":  "1013",
+                         "descricao":  "Freezer Horizontal",
+                         "tipo":  "Congelamento",
+                         "setor":  "Estoque"
+                     },
+                     {
+                         "id":  14,
+                         "codigo":  "1014",
+                         "descricao":  "Geladeira Comercial",
+                         "tipo":  "Refrigeração",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  15,
+                         "codigo":  "1015",
+                         "descricao":  "Seladora a Vácuo",
+                         "tipo":  "Embalagem",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  16,
+                         "codigo":  "1016",
+                         "descricao":  "Embaladora Automática",
+                         "tipo":  "Embalagem",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  17,
+                         "codigo":  "1017",
+                         "descricao":  "Fritadeira Elétrica",
+                         "tipo":  "Fritura",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  18,
+                         "codigo":  "1018",
+                         "descricao":  "Fritadeira a Gás",
+                         "tipo":  "Fritura",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  19,
+                         "codigo":  "1019",
+                         "descricao":  "Chapa Elétrica",
+                         "tipo":  "Cocção",
+                         "setor":  "Lanchonete"
+                     },
+                     {
+                         "id":  20,
+                         "codigo":  "1020",
+                         "descricao":  "Fogão Industrial 6 Bocas",
+                         "tipo":  "Cocção",
+                         "setor":  "Cozinha"
+                     },
+                     {
+                         "id":  21,
+                         "codigo":  "1021",
+                         "descricao":  "Liquidificador Industrial",
+                         "tipo":  "Preparo",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  22,
+                         "codigo":  "1022",
+                         "descricao":  "Processador Industrial",
+                         "tipo":  "Preparo",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  23,
+                         "codigo":  "1023",
+                         "descricao":  "Cutter Industrial",
+                         "tipo":  "Preparo",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  24,
+                         "codigo":  "1024",
+                         "descricao":  "Misturador de Recheios",
+                         "tipo":  "Preparo",
+                         "setor":  "Confeitaria"
+                     },
+                     {
+                         "id":  25,
+                         "codigo":  "1025",
+                         "descricao":  "Dosadora de Creme",
+                         "tipo":  "Confeitaria",
+                         "setor":  "Confeitaria"
+                     },
+                     {
+                         "id":  26,
+                         "codigo":  "1026",
+                         "descricao":  "Termocirculador Sous Vide",
+                         "tipo":  "Cocção",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  27,
+                         "codigo":  "1027",
+                         "descricao":  "Balança Industrial",
+                         "tipo":  "Pesagem",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  28,
+                         "codigo":  "1028",
+                         "descricao":  "Balança de Precisão",
+                         "tipo":  "Pesagem",
+                         "setor":  "Confeitaria"
+                     },
+                     {
+                         "id":  29,
+                         "codigo":  "1029",
+                         "descricao":  "Etiquetadora",
+                         "tipo":  "Identificação",
+                         "setor":  "Produção"
+                     },
+                     {
+                         "id":  30,
+                         "codigo":  "1030",
+                         "descricao":  "Impressora de Etiquetas",
+                         "tipo":  "Identificação",
+                         "setor":  "Produção"
+                     }
+                 ]
+}

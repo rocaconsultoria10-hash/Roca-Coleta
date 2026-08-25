@@ -169,10 +169,26 @@ export default function FotosReceita({
       LIMITE_FOTOS_POR_CATEGORIA;
 
     return (
-      <Box sx={{ mt: 3 }}>
+      <Box
+        sx={{
+          p: {
+            xs: 1.5,
+            sm: 2,
+          },
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 2,
+          backgroundColor: "background.paper",
+          boxShadow:
+            "0 2px 8px rgba(15,35,60,0.05)",
+        }}
+      >
         <Typography
-          variant="subtitle1"
-          sx={{ fontWeight: 700 }}
+          variant="h6"
+          sx={{
+            mb: 0.5,
+            color: "text.primary",
+          }}
         >
           {titulo}
         </Typography>
@@ -180,7 +196,7 @@ export default function FotosReceita({
         <Typography
           variant="body2"
           color="text.secondary"
-          sx={{ mb: 2 }}
+          sx={{ mb: 1.5 }}
         >
           {descricao}
         </Typography>
@@ -196,12 +212,8 @@ export default function FotosReceita({
             component="label"
             variant="contained"
             disabled={limiteAtingido}
-            sx={{
-              backgroundColor: "#0D3768",
-              fontWeight: 800,
-            }}
           >
-            TIRAR FOTO
+            Tirar foto
 
             <input
               hidden
@@ -222,7 +234,7 @@ export default function FotosReceita({
             variant="outlined"
             disabled={limiteAtingido}
           >
-            ESCOLHER DA GALERIA
+            Escolher da galeria
 
             <input
               hidden
@@ -240,9 +252,9 @@ export default function FotosReceita({
         </Box>
 
         <Typography
-          variant="caption"
+          variant="body2"
+          color="text.secondary"
           sx={{
-            display: "block",
             mt: 1,
           }}
         >
@@ -256,10 +268,10 @@ export default function FotosReceita({
               display: "grid",
               gridTemplateColumns: {
                 xs: "1fr",
-                sm: "repeat(2, 1fr)",
-                md: "repeat(4, 1fr)",
+                sm: "repeat(2, minmax(0, 1fr))",
+                md: "repeat(4, minmax(0, 1fr))",
               },
-              gap: 2,
+              gap: 1.5,
               mt: 2,
             }}
           >
@@ -268,6 +280,9 @@ export default function FotosReceita({
                 <Card
                   key={foto.id}
                   variant="outlined"
+                  sx={{
+                    overflow: "hidden",
+                  }}
                 >
                   <Box
                     sx={{
@@ -282,13 +297,17 @@ export default function FotosReceita({
                         foto.nome
                       }
                       sx={{
-                        height: 180,
+                        height: {
+                          xs: 200,
+                          sm: 180,
+                        },
                         objectFit: "cover",
                       }}
                     />
 
                     <IconButton
                       size="small"
+                      aria-label="Remover foto"
                       onClick={() =>
                         removerFoto(
                           foto.id
@@ -297,14 +316,27 @@ export default function FotosReceita({
                       sx={{
                         position:
                           "absolute",
-                        top: 6,
-                        right: 6,
+                        top: 8,
+                        right: 8,
                         bgcolor:
                           "background.paper",
+                        border: "1px solid",
+                        borderColor:
+                          "divider",
+                        boxShadow:
+                          "0 2px 6px rgba(15,35,60,0.10)",
+
+                        "&:hover": {
+                          bgcolor:
+                            "background.paper",
+                        },
                       }}
                     >
                       <Typography
+                        component="span"
                         sx={{
+                          fontSize: "1rem",
+                          lineHeight: 1,
                           fontWeight: 700,
                         }}
                       >
@@ -313,11 +345,19 @@ export default function FotosReceita({
                     </IconButton>
                   </Box>
 
-                  <CardContent>
+                  <CardContent
+                    sx={{
+                      p: 1.25,
+
+                      "&:last-child": {
+                        pb: 1.25,
+                      },
+                    }}
+                  >
                     <TextField
                       fullWidth
                       multiline
-                      minRows={3}
+                      minRows={2}
                       label="Descrição da foto"
                       placeholder="Descreva o que esta foto representa na produção"
                       value={
@@ -341,12 +381,16 @@ export default function FotosReceita({
   }
 
   return (
-    <Box sx={{ mt: 4 }}>
+    <Box
+      sx={{
+        mt: 3,
+      }}
+    >
       <Typography
         variant="h6"
         sx={{
-          fontWeight: 700,
-          mb: 1,
+          mb: 0.5,
+          color: "text.primary",
         }}
       >
         Fotos da ficha técnica
@@ -355,6 +399,9 @@ export default function FotosReceita({
       <Typography
         variant="body2"
         color="text.secondary"
+        sx={{
+          mb: 2,
+        }}
       >
         Registre imagens da preparação e
         do produto final. É possível
@@ -362,7 +409,7 @@ export default function FotosReceita({
         categoria.
       </Typography>
 
-      <Stack spacing={2}>
+      <Stack spacing={1.5}>
         {renderizarCategoria(
           "Ingredientes / Preparação",
           "Ingredientes, pesagens, mistura, montagem ou etapas importantes da produção.",
@@ -370,7 +417,7 @@ export default function FotosReceita({
         )}
 
         {renderizarCategoria(
-          "Produto Final",
+          "Produto final",
           "Produto pronto, acabamento, apresentação ou embalagem final.",
           "PRODUTO_FINAL"
         )}

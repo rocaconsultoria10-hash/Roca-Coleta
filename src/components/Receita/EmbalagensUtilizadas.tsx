@@ -189,7 +189,7 @@ export default function EmbalagensUtilizadas({
           paper: {
             sx: {
               backgroundColor:
-                "#F4F7FB",
+                "background.default",
               height: "100dvh",
               maxHeight: "100dvh",
               display: "flex",
@@ -207,14 +207,14 @@ export default function EmbalagensUtilizadas({
             },
             py: 1.2,
             backgroundColor:
-              "#0D3768",
+              "primary.main",
             color: "#FFFFFF",
             display: "flex",
             alignItems: "center",
             justifyContent:
               "space-between",
             gap: 1,
-            fontWeight: 800,
+            fontWeight: 700,
           }}
         >
           Selecionar Embalagem
@@ -230,10 +230,10 @@ export default function EmbalagensUtilizadas({
             )}
             sx={{
               color: "#FFFFFF",
-              fontWeight: 800,
+              fontWeight: 700,
             }}
           >
-            VOLTAR
+            Voltar
           </Button>
         </DialogTitle>
 
@@ -246,7 +246,7 @@ export default function EmbalagensUtilizadas({
             WebkitOverflowScrolling:
               "touch",
             backgroundColor:
-              "#FFFFFF",
+              "background.paper",
           }}
         >
           {carregandoLista ? (
@@ -260,7 +260,7 @@ export default function EmbalagensUtilizadas({
             <Typography
               sx={{
                 p: 2,
-                color: "#64748B",
+                color: "text.secondary",
               }}
             >
               Nenhuma embalagem
@@ -272,7 +272,7 @@ export default function EmbalagensUtilizadas({
               sx={{
                 width: "100%",
                 backgroundColor:
-                  "#FFFFFF",
+                  "background.paper",
                 pb:
                   "max(16px, env(safe-area-inset-bottom))",
               }}
@@ -296,7 +296,7 @@ export default function EmbalagensUtilizadas({
                       },
                       py: 1.2,
                       borderBottom:
-                        "1px solid #E8EEF5",
+                        "1px solid #E2E7EE",
                     }}
                   >
                     <ListItemText
@@ -314,7 +314,7 @@ export default function EmbalagensUtilizadas({
                           {
                             fontWeight: 700,
                             color:
-                              "#1E293B",
+                              "text.primary",
                           },
                         "& .MuiListItemText-secondary":
                           {
@@ -365,7 +365,7 @@ export default function EmbalagensUtilizadas({
             variant="h6"
             sx={{
               fontWeight: 700,
-              color: "#0D3768",
+              color: "primary.main",
             }}
           >
             Embalagens utilizadas
@@ -380,11 +380,11 @@ export default function EmbalagensUtilizadas({
             sx={{
               backgroundColor:
                 "#0D3768",
-              fontWeight: 800,
+              fontWeight: 700,
               whiteSpace: "nowrap",
             }}
           >
-            + EMBALAGEM
+            + Embalagem
           </Button>
         </Box>
 
@@ -392,7 +392,7 @@ export default function EmbalagensUtilizadas({
           <Typography
             variant="body2"
             sx={{
-              color: "#64748B",
+              color: "text.secondary",
             }}
           >
             Nenhuma embalagem
@@ -419,11 +419,12 @@ export default function EmbalagensUtilizadas({
                     }
                     sx={{
                       p: 1.5,
+                      border: "1px solid",
+                      borderColor: "divider",
                       borderRadius: 2,
                       backgroundColor:
                         "#F8FAFC",
-                      boxShadow:
-                        "0 2px 8px rgba(15,23,42,0.06)",
+                      boxShadow: "none",
                     }}
                   >
                     <Box
@@ -451,7 +452,7 @@ export default function EmbalagensUtilizadas({
                             fontWeight:
                               800,
                             color:
-                              "#1E293B",
+                              "text.primary",
                           }}
                         >
                           {
@@ -552,7 +553,7 @@ export default function EmbalagensUtilizadas({
                             abrirSeletor
                           }
                         >
-                          TROCAR
+                          Trocar
                         </Button>
 
                         <Button
@@ -564,7 +565,7 @@ export default function EmbalagensUtilizadas({
                             )
                           }
                         >
-                          REMOVER
+                          Remover
                         </Button>
                       </Box>
                     </Box>

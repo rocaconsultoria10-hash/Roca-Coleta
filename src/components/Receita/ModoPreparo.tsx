@@ -419,28 +419,62 @@ export default function ModoPreparo({
   }
 
   return (
-    <>
+    <Box
+      sx={{
+        mt: 3,
+        display: "grid",
+        gap: 2,
+      }}
+    >
       <Typography
         variant="h6"
         sx={{
-          fontWeight: 700,
-          mt: 4,
-          mb: 2,
+          color: "text.primary",
         }}
       >
         Modo de preparo
       </Typography>
 
       {mensagemErro && (
-        <Alert
-          severity="error"
-          sx={{ mb: 2 }}
-        >
+        <Alert severity="error">
           {mensagemErro}
         </Alert>
       )}
 
-      <Box>
+      <Box
+        sx={{
+          p: {
+            xs: 1.5,
+            sm: 2,
+          },
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 2,
+          backgroundColor: "background.paper",
+          boxShadow:
+            "0 2px 8px rgba(15,35,60,0.05)",
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          sx={{
+            mb: 1,
+            color: "text.primary",
+          }}
+        >
+          Produção
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            mb: 1.5,
+          }}
+        >
+          Registre o modo de preparo utilizado pela equipe de produção.
+        </Typography>
+
         <TextField
           fullWidth
           multiline
@@ -508,12 +542,45 @@ export default function ModoPreparo({
         </Box>
       </Box>
 
-      <Box sx={{ mt: 4 }}>
+      <Box
+        sx={{
+          p: {
+            xs: 1.5,
+            sm: 2,
+          },
+          border: "1px solid",
+          borderColor: "divider",
+          borderRadius: 2,
+          backgroundColor: "background.paper",
+          boxShadow:
+            "0 2px 8px rgba(15,35,60,0.05)",
+        }}
+      >
+        <Typography
+          variant="subtitle1"
+          sx={{
+            mb: 1,
+            color: "text.primary",
+          }}
+        >
+          Orientação ao cliente
+        </Typography>
+
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            mb: 1.5,
+          }}
+        >
+          Informe como o cliente deve finalizar, armazenar ou preparar o produto em casa ou na revenda.
+        </Typography>
+
         <TextField
           fullWidth
           multiline
           minRows={6}
-          label="Modo de preparo para cliente que vai finalizar em casa ou revenda"
+          label="Modo de preparo para o cliente"
           value={modoPreparoCliente}
           onChange={(event) =>
             onChangeModoPreparoCliente(
@@ -575,6 +642,6 @@ export default function ModoPreparo({
           </Button>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 }

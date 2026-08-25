@@ -232,7 +232,8 @@ function LinhaColaborador({
       sx={{
         p: 1,
         mb: 0.75,
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
         backgroundColor: "#F8FAFC",
       }}
@@ -457,9 +458,9 @@ function LinhaColaborador({
             },
 
             mt: 0.5,
-            fontSize: "0.72rem",
+            fontSize: "0.88rem",
             fontWeight: 700,
-            color: "#0D3768",
+            color: "primary.main",
           }}
         >
           Tempo:{" "}
@@ -567,7 +568,7 @@ export default function ColaboradoresEnvolvidos({
       slotProps={{
         paper: {
           sx: {
-            backgroundColor: "#F4F7FB",
+            backgroundColor: "background.default",
             height: "100dvh",
             maxHeight: "100dvh",
             display: "flex",
@@ -581,13 +582,13 @@ export default function ColaboradoresEnvolvidos({
         sx={{
           px: { xs: 1.5, sm: 2 },
           py: 1.2,
-          backgroundColor: "#0D3768",
+          backgroundColor: "primary.main",
           color: "#FFFFFF",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           gap: 1,
-          fontWeight: 800,
+          fontWeight: 700,
         }}
       >
         Selecionar Colaborador
@@ -601,10 +602,10 @@ export default function ColaboradoresEnvolvidos({
           )}
           sx={{
             color: "#FFFFFF",
-            fontWeight: 800,
+            fontWeight: 700,
           }}
         >
-          VOLTAR
+          Voltar
         </Button>
       </DialogTitle>
 
@@ -615,7 +616,7 @@ export default function ColaboradoresEnvolvidos({
           minHeight: 0,
           overflowY: "auto",
           WebkitOverflowScrolling: "touch",
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "background.paper",
         }}
       >
         {carregandoLista ? (
@@ -626,7 +627,7 @@ export default function ColaboradoresEnvolvidos({
           <Typography
             sx={{
               p: 2,
-              color: "#64748B",
+              color: "text.secondary",
             }}
           >
             Nenhum colaborador cadastrado.
@@ -637,7 +638,7 @@ export default function ColaboradoresEnvolvidos({
             sx={{
               width: "100%",
               minHeight: "100%",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "background.paper",
               pb: "max(16px, env(safe-area-inset-bottom))",
             }}
           >
@@ -654,7 +655,7 @@ export default function ColaboradoresEnvolvidos({
                   px: { xs: 1.5, sm: 2 },
                   py: 1.2,
                   borderBottom:
-                    "1px solid #E8EEF5",
+                    "1px solid #E2E7EE",
                 }}
               >
                 <ListItemText
@@ -671,13 +672,13 @@ export default function ColaboradoresEnvolvidos({
                     "& .MuiListItemText-primary":
                       {
                         fontWeight: 700,
-                        color: "#1E293B",
+                        color: "text.primary",
                       },
                     "& .MuiListItemText-secondary":
                       {
                         mt: 0.25,
-                        fontSize: "0.76rem",
-                        color: "#64748B",
+                        fontSize: "0.82rem",
+                        color: "text.secondary",
                       },
                   }}
                 />
@@ -698,11 +699,12 @@ export default function ColaboradoresEnvolvidos({
           sm: 1.25,
         },
 
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "background.paper",
         boxShadow:
-          "0 2px 10px rgba(15,23,42,0.08)",
+          "0 2px 8px rgba(15,35,60,0.05)",
       }}
     >
       <Box
@@ -717,8 +719,8 @@ export default function ColaboradoresEnvolvidos({
       >
         <Typography
           sx={{
-            fontWeight: 800,
-            color: "#0D3768",
+            fontWeight: 700,
+            color: "primary.main",
 
             fontSize: {
               xs: "0.95rem",
@@ -734,14 +736,14 @@ export default function ColaboradoresEnvolvidos({
           size="small"
           onClick={abrirSeletor}
           sx={{
-            minHeight: 34,
+            minHeight: 36,
             px: 1.5,
-            fontWeight: 800,
+            fontWeight: 700,
             backgroundColor:
               "#0D3768",
           }}
         >
-          + Colaboradores
+          + Colaborador
         </Button>
       </Box>
 
@@ -750,8 +752,8 @@ export default function ColaboradoresEnvolvidos({
         <Typography
           sx={{
             py: 1,
-            fontSize: "0.8rem",
-            color: "#64748B",
+            fontSize: "0.88rem",
+            color: "text.secondary",
           }}
         >
           Nenhum cargo

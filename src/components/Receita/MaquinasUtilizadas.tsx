@@ -251,7 +251,7 @@ function EditorMaquina({
           xs: 1400,
           sm: "auto",
         },
-        backgroundColor: "#F4F7FB",
+        backgroundColor: "background.default",
         overflowY: "auto",
         p: {
           xs: 0,
@@ -269,7 +269,11 @@ function EditorMaquina({
             sm: "auto",
           },
           mx: "auto",
-          border: "none",
+          border: {
+            xs: "none",
+            sm: "1px solid",
+          },
+          borderColor: "divider",
           borderRadius: {
             xs: 0,
             sm: 2,
@@ -277,7 +281,7 @@ function EditorMaquina({
           overflow: "hidden",
           boxShadow: {
             xs: "none",
-            sm: "0 4px 16px rgba(13,55,104,0.12)",
+            sm: "0 2px 8px rgba(15,35,60,0.05)",
           },
         }}
       >
@@ -297,7 +301,7 @@ function EditorMaquina({
         >
           <Typography
             sx={{
-              fontWeight: 800,
+              fontWeight: 700,
             }}
           >
             Máquina / Equipamento
@@ -308,10 +312,10 @@ function EditorMaquina({
             sx={{
               color: "#FFFFFF",
               minWidth: 0,
-              fontWeight: 800,
+              fontWeight: 700,
             }}
           >
-            VOLTAR
+            Voltar
           </Button>
         </Box>
 
@@ -360,7 +364,7 @@ function EditorMaquina({
                   border: "none",
                   borderRadius: 1.5,
                   boxShadow:
-                    "0 8px 24px rgba(13,55,104,0.14)",
+                    "0 8px 24px rgba(15,35,60,0.12)",
                 }}
               >
                 {resultados.map(
@@ -484,8 +488,8 @@ function EditorMaquina({
             <Typography
               sx={{
                 mt: 0.8,
-                fontSize: "0.75rem",
-                color: "#64748B",
+                fontSize: "0.88rem",
+                color: "text.secondary",
               }}
             >
               {[
@@ -515,7 +519,7 @@ function EditorMaquina({
                 onFechar();
               }}
             >
-              REMOVER
+              Remover
             </Button>
 
             <Button
@@ -524,10 +528,10 @@ function EditorMaquina({
               sx={{
                 backgroundColor:
                   "#0D3768",
-                fontWeight: 800,
+                fontWeight: 700,
               }}
             >
-              SALVAR
+              Salvar
             </Button>
           </Box>
         </Box>
@@ -656,7 +660,7 @@ export default function MaquinasUtilizadas({
         slotProps={{
           paper: {
             sx: {
-              backgroundColor: "#F4F7FB",
+              backgroundColor: "background.default",
               height: "100dvh",
               maxHeight: "100dvh",
               display: "flex",
@@ -670,13 +674,13 @@ export default function MaquinasUtilizadas({
           sx={{
             px: { xs: 1.5, sm: 2 },
             py: 1.2,
-            backgroundColor: "#0D3768",
+            backgroundColor: "primary.main",
             color: "#FFFFFF",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
             gap: 1,
-            fontWeight: 800,
+            fontWeight: 700,
           }}
         >
           Selecionar Equipamento
@@ -686,10 +690,10 @@ export default function MaquinasUtilizadas({
             disabled={Boolean(selecionarAposAdicionar)}
             sx={{
               color: "#FFFFFF",
-              fontWeight: 800,
+              fontWeight: 700,
             }}
           >
-            VOLTAR
+            Voltar
           </Button>
         </DialogTitle>
 
@@ -700,14 +704,14 @@ export default function MaquinasUtilizadas({
             minHeight: 0,
             overflowY: "auto",
             WebkitOverflowScrolling: "touch",
-            backgroundColor: "#FFFFFF",
+            backgroundColor: "background.paper",
           }}
         >
           {carregandoLista ? (
             <Typography
               sx={{
                 p: 2,
-                color: "#64748B",
+                color: "text.secondary",
               }}
             >
               Carregando equipamentos...
@@ -716,7 +720,7 @@ export default function MaquinasUtilizadas({
             <Typography
               sx={{
                 p: 2,
-                color: "#64748B",
+                color: "text.secondary",
               }}
             >
               Nenhum equipamento cadastrado.
@@ -727,7 +731,7 @@ export default function MaquinasUtilizadas({
               sx={{
                 width: "100%",
                 minHeight: "100%",
-                backgroundColor: "#FFFFFF",
+                backgroundColor: "background.paper",
                 pb: "max(16px, env(safe-area-inset-bottom))",
               }}
             >
@@ -756,14 +760,14 @@ export default function MaquinasUtilizadas({
                       primary: {
                         sx: {
                           fontWeight: 700,
-                          color: "#1E293B",
+                          color: "text.primary",
                         },
                       },
                       secondary: {
                         sx: {
                           mt: 0.25,
-                          fontSize: "0.76rem",
-                          color: "#64748B",
+                          fontSize: "0.88rem",
+                          color: "text.secondary",
                         },
                       },
                     }}
@@ -782,20 +786,18 @@ export default function MaquinasUtilizadas({
           xs: 0.75,
           sm: 1,
         },
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
         overflow: "hidden",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "background.paper",
         boxShadow:
-          "0 3px 12px rgba(13,55,104,0.10)",
+          "0 2px 8px rgba(15,35,60,0.05)",
       }}
     >
       <Box
         sx={{
-          minHeight: {
-            xs: 38,
-            sm: 42,
-          },
+          minHeight: 46,
           px: {
             xs: 0.9,
             sm: 1.1,
@@ -810,9 +812,9 @@ export default function MaquinasUtilizadas({
       >
         <Typography
           sx={{
-            fontWeight: 800,
-            color: "#0D3768",
-            fontSize: "0.92rem",
+            fontWeight: 700,
+            color: "primary.main",
+            fontSize: "0.95rem",
           }}
         >
           Máquinas / Equipamentos
@@ -823,16 +825,16 @@ export default function MaquinasUtilizadas({
           size="small"
           onClick={abrirSeletor}
           sx={{
-            minHeight: 30,
+            minHeight: 36,
             px: 1,
-            fontSize: "0.7rem",
-            fontWeight: 800,
+            fontSize: "0.84rem",
+            fontWeight: 700,
             backgroundColor:
               "#0D3768",
             whiteSpace: "nowrap",
           }}
         >
-          + EQUIPAMENTO
+          + Equipamento
         </Button>
       </Box>
 
@@ -847,8 +849,8 @@ export default function MaquinasUtilizadas({
               xs: 0.7,
               sm: 0.9,
             },
-            fontSize: "0.78rem",
-            color: "#64748B",
+            fontSize: "0.84rem",
+            color: "text.secondary",
           }}
         >
           Nenhum equipamento adicionado.
@@ -872,7 +874,7 @@ export default function MaquinasUtilizadas({
                     )
                   }
                   sx={{
-                    minHeight: 40,
+                    minHeight: 44,
                     px: 1.1,
                     py: 0.5,
                     display: "grid",
@@ -892,7 +894,9 @@ export default function MaquinasUtilizadas({
                         ? 0.45
                         : 0.7,
                     borderRadius: 1.5,
-                    backgroundColor: "#F5F8FC",
+                    border: "1px solid",
+                    borderColor: "divider",
+                    backgroundColor: "#F8FAFC",
                     "&:hover": {
                       backgroundColor:
                         "#EEF4FA",
@@ -902,9 +906,9 @@ export default function MaquinasUtilizadas({
                   <Typography
                     sx={{
                       minWidth: 0,
-                      fontSize: "0.82rem",
+                      fontSize: "0.88rem",
                       fontWeight: 700,
-                      color: "#1E293B",
+                      color: "text.primary",
                       overflow: "hidden",
                       textOverflow:
                         "ellipsis",
@@ -921,9 +925,9 @@ export default function MaquinasUtilizadas({
 
                   <Typography
                     sx={{
-                      fontSize: "0.8rem",
-                      fontWeight: 800,
-                      color: "#0D3768",
+                      fontSize: "0.84rem",
+                      fontWeight: 700,
+                      color: "primary.main",
                       whiteSpace: "nowrap",
                       textAlign: "right",
                     }}

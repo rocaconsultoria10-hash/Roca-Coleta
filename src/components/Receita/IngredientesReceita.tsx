@@ -670,7 +670,7 @@ function EditorIngrediente({
         position: "fixed",
         inset: 0,
         zIndex: 1600,
-        bgcolor: "#F5F7FA",
+        bgcolor: "background.default",
         overflowY: "auto",
       }}
     >
@@ -684,7 +684,7 @@ function EditorIngrediente({
             xs: 1.25,
             sm: 2,
           },
-          bgcolor: "#0D3768",
+          bgcolor: "primary.main",
           color: "#FFFFFF",
           display: "flex",
           alignItems: "center",
@@ -698,7 +698,7 @@ function EditorIngrediente({
         <Box sx={{ minWidth: 0 }}>
           <Typography
             sx={{
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: {
                 xs: "1rem",
                 sm: "1.08rem",
@@ -712,7 +712,7 @@ function EditorIngrediente({
           <Typography
             sx={{
               mt: 0.15,
-              fontSize: "0.7rem",
+              fontSize: "0.78rem",
               opacity: 0.88,
             }}
           >
@@ -729,11 +729,11 @@ function EditorIngrediente({
             color: "#FFFFFF",
             minWidth: 0,
             px: 0.5,
-            fontWeight: 900,
+            fontWeight: 700,
             whiteSpace: "nowrap",
           }}
         >
-          FECHAR
+          Fechar
         </Button>
       </Box>
 
@@ -774,29 +774,30 @@ function EditorIngrediente({
             <Paper
               elevation={0}
               sx={{
-                border: "none",
+                border: "1px solid",
+                borderColor: "divider",
                 borderRadius: 2,
                 overflow: "hidden",
-                bgcolor: "#FFFFFF",
+                bgcolor: "background.paper",
                 boxShadow:
-                  "0 2px 10px rgba(15,23,42,0.08)",
+                  "0 2px 8px rgba(15,35,60,0.05)",
               }}
             >
               <Box
                 sx={{
                   px: 1.25,
                   py: 0.8,
-                  bgcolor: "#F7F9FC",
+                  bgcolor: "#F8FAFC",
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "0.82rem",
-                    fontWeight: 900,
-                    color: "#0D3768",
+                    fontSize: "0.86rem",
+                    fontWeight: 700,
+                    color: "primary.main",
                   }}
                 >
-                  1. CÓDIGO DE BARRAS
+                  1. Código de barras
                 </Typography>
               </Box>
 
@@ -857,11 +858,11 @@ function EditorIngrediente({
                       borderWidth: 2,
                       borderColor:
                         "#0D3768",
-                      color: "#0D3768",
-                      fontWeight: 900,
+                      color: "primary.main",
+                      fontWeight: 700,
                     }}
                   >
-                    BUSCAR
+                    Buscar
                   </Button>
 
                   <Button
@@ -874,11 +875,11 @@ function EditorIngrediente({
                     }
                     sx={{
                       minHeight: 40,
-                      bgcolor: "#0D3768",
-                      fontWeight: 900,
+                      bgcolor: "primary.main",
+                      fontWeight: 700,
                     }}
                   >
-                    CÂMERA
+                    Câmera
                   </Button>
                 </Box>
 
@@ -928,10 +929,10 @@ function EditorIngrediente({
                           "absolute",
                         bottom: 8,
                         right: 8,
-                        fontWeight: 900,
+                        fontWeight: 700,
                       }}
                     >
-                      CANCELAR
+                      Cancelar
                     </Button>
                   </Box>
                 )}
@@ -949,8 +950,8 @@ function EditorIngrediente({
               <Box sx={{ flex: 1 }} />
               <Typography
                 sx={{
-                  fontSize: "0.72rem",
-                  fontWeight: 900,
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
                   color: "#64748B",
                 }}
               >
@@ -962,29 +963,30 @@ function EditorIngrediente({
             <Paper
               elevation={0}
               sx={{
-                border: "none",
+                border: "1px solid",
+                borderColor: "divider",
                 borderRadius: 2,
                 overflow: "hidden",
-                bgcolor: "#FFFFFF",
+                bgcolor: "background.paper",
                 boxShadow:
-                  "0 2px 10px rgba(15,23,42,0.08)",
+                  "0 2px 8px rgba(15,35,60,0.05)",
               }}
             >
               <Box
                 sx={{
                   px: 1.25,
                   py: 0.8,
-                  bgcolor: "#F7F9FC",
+                  bgcolor: "#F8FAFC",
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "0.82rem",
-                    fontWeight: 900,
-                    color: "#0D3768",
+                    fontSize: "0.86rem",
+                    fontWeight: 700,
+                    color: "primary.main",
                   }}
                 >
-                  2. PRODUTO / CÓDIGO INTERNO
+                  2. Produto / código interno
                 </Typography>
               </Box>
 
@@ -1025,9 +1027,9 @@ function EditorIngrediente({
                   border: "none",
                   borderRadius: 2,
                   overflow: "hidden",
-                  bgcolor: "#FFFFFF",
+                  bgcolor: "background.paper",
                   boxShadow:
-                    "0 2px 10px rgba(15,23,42,0.08)",
+                    "0 2px 8px rgba(15,35,60,0.05)",
                 }}
               >
                 <List
@@ -1079,7 +1081,7 @@ function EditorIngrediente({
                           slotProps={{
                             primary: {
                               sx: {
-                                fontWeight: 900,
+                                fontWeight: 700,
                                 color:
                                   "#172033",
                                 lineHeight: 1.25,
@@ -1108,7 +1110,7 @@ function EditorIngrediente({
                   sx={{
                     mt: 0.8,
                     px: 0.2,
-                    fontSize: "0.8rem",
+                    fontSize: "0.88rem",
                     color: "#64748B",
                   }}
                 >
@@ -1128,19 +1130,20 @@ function EditorIngrediente({
             <Paper
               elevation={0}
               sx={{
-                border: "none",
+                border: "1px solid",
+                borderColor: "divider",
                 borderRadius: 2,
                 overflow: "hidden",
-                bgcolor: "#FFFFFF",
+                bgcolor: "background.paper",
                 boxShadow:
-                  "0 2px 10px rgba(15,23,42,0.08)",
+                  "0 2px 8px rgba(15,35,60,0.05)",
               }}
             >
               <Box
                 sx={{
                   px: 1.25,
                   py: 0.75,
-                  bgcolor: "#F7F9FC",
+                  bgcolor: "#F8FAFC",
                   display: "flex",
                   justifyContent:
                     "space-between",
@@ -1150,12 +1153,12 @@ function EditorIngrediente({
               >
                 <Typography
                   sx={{
-                    fontSize: "0.8rem",
-                    fontWeight: 900,
-                    color: "#0D3768",
+                    fontSize: "0.88rem",
+                    fontWeight: 700,
+                    color: "primary.main",
                   }}
                 >
-                  PRODUTO SELECIONADO
+                  Produto selecionado
                 </Typography>
 
                 <Button
@@ -1164,12 +1167,12 @@ function EditorIngrediente({
                   sx={{
                     minWidth: 0,
                     p: 0,
-                    fontSize: "0.7rem",
-                    fontWeight: 900,
-                    color: "#0D3768",
+                    fontSize: "0.78rem",
+                    fontWeight: 700,
+                    color: "primary.main",
                   }}
                 >
-                  TROCAR
+                  Trocar
                 </Button>
               </Box>
 
@@ -1180,7 +1183,7 @@ function EditorIngrediente({
               >
                 <Typography
                   sx={{
-                    fontWeight: 900,
+                    fontWeight: 700,
                     color: "#172033",
                     fontSize: "1rem",
                     lineHeight: 1.25,
@@ -1198,7 +1201,7 @@ function EditorIngrediente({
                 >
                   <Typography
                     sx={{
-                      fontSize: "0.76rem",
+                      fontSize: "0.86rem",
                       color: "#475569",
                     }}
                   >
@@ -1208,7 +1211,7 @@ function EditorIngrediente({
 
                   <Typography
                     sx={{
-                      fontSize: "0.76rem",
+                      fontSize: "0.86rem",
                       color: "#475569",
                     }}
                   >
@@ -1218,7 +1221,7 @@ function EditorIngrediente({
 
                   <Typography
                     sx={{
-                      fontSize: "0.76rem",
+                      fontSize: "0.86rem",
                       color: "#475569",
                     }}
                   >
@@ -1232,29 +1235,30 @@ function EditorIngrediente({
             <Paper
               elevation={0}
               sx={{
-                border: "none",
+                border: "1px solid",
+                borderColor: "divider",
                 borderRadius: 2,
                 overflow: "hidden",
-                bgcolor: "#FFFFFF",
+                bgcolor: "background.paper",
                 boxShadow:
-                  "0 2px 10px rgba(15,23,42,0.08)",
+                  "0 2px 8px rgba(15,35,60,0.05)",
               }}
             >
               <Box
                 sx={{
                   px: 1.25,
                   py: 0.75,
-                  bgcolor: "#F7F9FC",
+                  bgcolor: "#F8FAFC",
                 }}
               >
                 <Typography
                   sx={{
-                    fontSize: "0.8rem",
-                    fontWeight: 900,
-                    color: "#0D3768",
+                    fontSize: "0.88rem",
+                    fontWeight: 700,
+                    color: "primary.main",
                   }}
                 >
-                  3. PESO E GRAMATURA
+                  3. Peso e gramatura
                 </Typography>
               </Box>
 
@@ -1385,9 +1389,9 @@ function EditorIngrediente({
               variant="contained"
               onClick={salvar}
               sx={{
-                minHeight: 50,
-                bgcolor: "#0D3768",
-                fontWeight: 900,
+                minHeight: 46,
+                bgcolor: "primary.main",
+                fontWeight: 700,
                 fontSize: "0.92rem",
                 borderRadius: 1.25,
                 boxShadow: "none",
@@ -1397,7 +1401,7 @@ function EditorIngrediente({
                 },
               }}
             >
-              SALVAR INGREDIENTE
+              Salvar ingrediente
             </Button>
 
             <Button
@@ -1412,10 +1416,10 @@ function EditorIngrediente({
               }}
               sx={{
                 minHeight: 38,
-                fontWeight: 900,
+                fontWeight: 700,
               }}
             >
-              REMOVER INGREDIENTE
+              Remover ingrediente
             </Button>
           </Box>
         )}
@@ -1445,12 +1449,13 @@ function BlocoIngredientes({
       elevation={0}
       sx={{
         mt: 1.25,
-        border: "none",
+        border: "1px solid",
+        borderColor: "divider",
         borderRadius: 2,
         overflow: "hidden",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "background.paper",
         boxShadow:
-          "0 3px 12px rgba(15,23,42,0.10)",
+          "0 2px 8px rgba(15,35,60,0.05)",
       }}
     >
       <Box
@@ -1465,8 +1470,8 @@ function BlocoIngredientes({
       >
         <Typography
           sx={{
-            fontWeight: 900,
-            color: "#0D3768",
+            fontWeight: 700,
+            color: "primary.main",
             fontSize: "0.92rem",
           }}
         >
@@ -1480,13 +1485,13 @@ function BlocoIngredientes({
           sx={{
             minHeight: 30,
             px: 1,
-            fontSize: "0.7rem",
-            fontWeight: 900,
-            backgroundColor: "#0D3768",
+            fontSize: "0.78rem",
+            fontWeight: 700,
+            backgroundColor: "primary.main",
             whiteSpace: "nowrap",
           }}
         >
-          + INGREDIENTE
+          + Ingrediente
         </Button>
       </Box>
 
@@ -1528,7 +1533,7 @@ function BlocoIngredientes({
               >
                 <Typography
                   sx={{
-                    fontSize: "0.8rem",
+                    fontSize: "0.88rem",
                     color: "#94A3B8",
                     fontWeight: 700,
                   }}
@@ -1568,8 +1573,8 @@ function BlocoIngredientes({
                 <Typography
                   sx={{
                     minWidth: 0,
-                    fontSize: "0.84rem",
-                    fontWeight: 800,
+                    fontSize: "0.88rem",
+                    fontWeight: 700,
                     color: "#1E293B",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
@@ -1588,7 +1593,7 @@ function BlocoIngredientes({
                   <Typography
                     sx={{
                       mt: 0.15,
-                      fontSize: "0.7rem",
+                      fontSize: "0.78rem",
                       color: "#64748B",
                     }}
                   >
@@ -1603,9 +1608,9 @@ function BlocoIngredientes({
 
               <Typography
                 sx={{
-                  fontSize: "0.82rem",
-                  fontWeight: 900,
-                  color: "#0D3768",
+                  fontSize: "0.86rem",
+                  fontWeight: 700,
+                  color: "primary.main",
                   whiteSpace: "nowrap",
                   textAlign: "right",
                 }}
