@@ -1,11 +1,6 @@
-type JanelaComCapacitor = Window & {
-  Capacitor?: {
-    isNativePlatform?: () => boolean;
-  };
-};
 
-const API_REDE_LOCAL =
-  "http://192.168.18.170:3001";
+const API_PRODUCAO =
+  "https://roca-coleta-production.up.railway.app";
 
 const API_CONFIGURADA =
   String(
@@ -14,25 +9,8 @@ const API_CONFIGURADA =
     .trim()
     .replace(/\/+$/, "");
 
-function estaNoAplicativoNativo(): boolean {
-  if (typeof window === "undefined") {
-    return false;
-  }
-
-  const janela =
-    window as JanelaComCapacitor;
-
-  return Boolean(
-    janela.Capacitor
-      ?.isNativePlatform?.()
-  );
-}
-
 export const API_BASE_URL =
-  API_CONFIGURADA ||
-  (estaNoAplicativoNativo()
-    ? API_REDE_LOCAL
-    : "");
+  API_CONFIGURADA || API_PRODUCAO;
 
 export function apiUrl(
   caminho: string
