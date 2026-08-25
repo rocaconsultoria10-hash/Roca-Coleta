@@ -570,16 +570,9 @@ export default function ImportacaoProdutos() {
         embalagens
       );
 
-      setResumo({
-        produtos:
-          produtos.length,
-        maquinas:
-          maquinas.length,
-        colaboradores:
-          colaboradores.length,
-        embalagens:
-          embalagens.length,
-      });
+      await carregarResumoEmpresa(
+        Number(empresaId)
+      );
     } catch (error) {
       setErro(
         error instanceof Error
