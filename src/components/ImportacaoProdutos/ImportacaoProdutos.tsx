@@ -274,16 +274,14 @@ export default function ImportacaoProdutos() {
         ];
 
       const planilhaMaquinas =
-        buscarPlanilha(workbook, [
-          "Máquinas",
-          "Maquinas",
-          "Equipamentos",
-          "Máquinas e Equipamentos",
-          "Maquinas e Equipamentos",
-        ]) ??
-        workbook.Sheets[
-          workbook.SheetNames[1]
-        ];
+  workbook.Sheets["Maquinas"] ??
+  buscarPlanilha(workbook, [
+    "Máquinas",
+    "Maquinas",
+    "Equipamentos",
+    "Máquinas e Equipamentos",
+    "Maquinas e Equipamentos",
+  ]);
 
       const planilhaColaboradores =
         buscarPlanilha(workbook, [
