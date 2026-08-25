@@ -55,9 +55,9 @@ export default function Inicio() {
   );
 
   const [
-    cardsAbertos,
-    setCardsAbertos,
-  ] = useState(true);
+  cardsAbertos,
+  setCardsAbertos,
+] = useState(false);
 
   useEffect(() => {
     function alternarCardsInicio() {
