@@ -148,53 +148,46 @@ export default function ImportacaoProdutos() {
     );
 
   async function carregarResumoEmpresa(
-    idEmpresa: number
+  idEmpresa: number
+) {
+  if (
+    !Number.isFinite(idEmpresa) ||
+    idEmpresa <= 0
   ) {
-    if (
-      !Number.isFinite(idEmpresa) ||
-      idEmpresa <= 0
-    ) {
-      setResumo(null);
-      return;
-    }
-
-    try {
-      const [
-        produtos,
-        maquinas,
-        colaboradores,
-        embalagens,
-      ] = await Promise.all([
-        produtoService.listar(),
-        maquinaService.listar(),
-        colaboradorService.listar(
-          idEmpresa
-        ),
-        embalagemService.listar(),
-      ]);
-
-      const produtosEmpresa =
-        produtos.filter(
-          (produto) =>
-            Number(produto.empresaId) ===
-            idEmpresa
-        );
-
-      setResumo({
-        produtos: produtosEmpresa.length,
-        maquinas: maquinas.length,
-        colaboradores: colaboradores.length,
-        embalagens: embalagens.length,
-      });
-    } catch (error) {
-      console.error(
-        "Erro ao carregar resumo dos cadastros:",
-        error
-      );
-
-      setResumo(null);
-    }
+    setResumo(null);
+    return;
   }
+
+  try {
+    const [
+      produtos,
+      maquinas,
+      colaboradores,
+      embalagens,
+    ] = await Promise.all([
+      produtoService.listar(idEmpresa),
+      maquinaService.listar(),
+      colaboradorService.listar(
+        idEmpresa
+      ),
+      embalagemService.listar(),
+    ]);
+
+    setResumo({
+      produtos: produtos.length,
+      maquinas: maquinas.length,
+      colaboradores: colaboradores.length,
+      embalagens: embalagens.length,
+    });
+  } catch (error) {
+    console.error(
+      "Erro ao carregar resumo dos cadastros:",
+      error
+    );
+
+    setResumo(null);
+  }
+}
 
   useEffect(() => {
     async function carregarEmpresas() {
