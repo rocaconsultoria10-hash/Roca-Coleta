@@ -1,29 +1,40 @@
 import type { Maquina } from "../models/Maquina";
+import { apiUrl } from "./apiConfig";
 
 type RespostaLista = {
   sucesso: boolean;
   dados: Maquina[];
+  erro?: string;
 };
+
+async function lerResposta(
+  resposta: Response
+): Promise<RespostaLista> {
+  const dados = await resposta
+    .json()
+    .catch(() => null);
+
+  if (!resposta.ok) {
+    throw new Error(
+      dados?.erro ||
+        `Erro no servidor (${resposta.status}).`
+    );
+  }
+
+  return dados ?? {
+    sucesso: false,
+    dados: [],
+  };
+}
 
 export const maquinaService = {
   async listar(): Promise<Maquina[]> {
     const resposta = await fetch(
-      "/api/maquinas"
+      apiUrl("/api/maquinas")
     );
 
-    if (!resposta.ok) {
-      const dados = await resposta
-        .json()
-        .catch(() => null);
-
-      throw new Error(
-        dados?.erro ||
-          "Não foi possível carregar os equipamentos."
-      );
-    }
-
     const dados =
-      (await resposta.json()) as RespostaLista;
+      await lerResposta(resposta);
 
     return dados.dados ?? [];
   },
@@ -32,7 +43,7 @@ export const maquinaService = {
     lista: Maquina[]
   ): Promise<void> {
     const resposta = await fetch(
-      "/api/maquinas/importar",
+      apiUrl("/api/maquinas/importar"),
       {
         method: "POST",
         headers: {
@@ -45,47 +56,28 @@ export const maquinaService = {
       }
     );
 
-    if (!resposta.ok) {
-      const dados = await resposta
-        .json()
-        .catch(() => null);
-
-      throw new Error(
-        dados?.erro ||
-          "Não foi possível importar os equipamentos."
-      );
-    }
+    await lerResposta(resposta);
   },
 
   async buscar(
     termo: string
   ): Promise<Maquina[]> {
-    const pesquisa =
-      termo.trim();
+    const pesquisa = termo.trim();
 
     if (!pesquisa) {
       return [];
     }
 
     const resposta = await fetch(
-      `/api/maquinas/buscar?termo=${encodeURIComponent(
-        pesquisa
-      )}`
+      apiUrl(
+        `/api/maquinas/buscar?termo=${encodeURIComponent(
+          pesquisa
+        )}`
+      )
     );
 
-    if (!resposta.ok) {
-      const dados = await resposta
-        .json()
-        .catch(() => null);
-
-      throw new Error(
-        dados?.erro ||
-          "Não foi possível buscar os equipamentos."
-      );
-    }
-
     const dados =
-      (await resposta.json()) as RespostaLista;
+      await lerResposta(resposta);
 
     return dados.dados ?? [];
   },
